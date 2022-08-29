@@ -171,17 +171,4 @@ def cos_loss(zv, zs, l):
     return x1 + x2
 
 
-def mcdd_loss(U):
-    n, d = U.shape
-    P = torch.eye(n).cuda()
-    W = torch.ones(n, n).cuda()
-    H = n * P - W
-    H = H / n
-    UT = U.transpose(0, 1)
-    UT = torch.mm(UT, H)
-    UT = torch.mm(UT, U)
-    I = torch.eye(d).cuda()
-    UT = UT - I
-    UT = torch.norm(UT)
-    UT = torch.pow(UT, 2)
-    return UT
+
