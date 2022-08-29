@@ -283,16 +283,14 @@ class Model(nn.Module):
             ADV_loss = None
         vae_factor = 1
         cross_reconstruction_factor =1
-        distance_factor =1
-        mcdd_factor=1
+        distance_factor =0.01
+       
         self.optimizer.zero_grad()
         loss = reconstruction_loss - vae_factor * KLD
         if cross_reconstruction_loss > 0:
             loss += cross_reconstruction_factor * cross_reconstruction_loss
         if distance > 0:
             loss += distance_factor * distance
-        if mcdd_loss>0:
-            loss+= mcdd_factor*mcdd_loss
         if ADV_loss:
             if ADV_loss > 0:
                 loss += self.lamda * ADV_loss
